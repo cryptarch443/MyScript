@@ -1,0 +1,63 @@
+interface loopback 1
+ ip address 123.45.67.1 255.255.255.255
+!
+interface loopback 2
+ ip address 123.45.67.2 255.255.255.255
+!
+interface loopback 3
+ ip address 123.45.67.3 255.255.255.255
+!
+interface loopback 4
+ ip address 123.45.67.4 255.255.255.255
+!
+interface loopback 5
+ ip address 123.45.67.5 255.255.255.255
+!
+interface loopback 6
+ ip address 123.45.67.6 255.255.255.255
+!
+interface loopback 7
+ ip address 123.45.67.7 255.255.255.255
+!
+interface loopback 8
+ ip address 123.45.67.8 255.255.255.255
+!
+interface loopback 9
+ ip address 123.45.67.9 255.255.255.255
+!
+interface loopback 10
+ ip address 123.45.67.10 255.255.255.255
+!
+router ospf 1
+ network 123.45.67.1 0.0.0.0 area 0
+ network 123.45.67.2 0.0.0.0 area 0
+ network 123.45.67.3 0.0.0.0 area 0
+ redistribute bgp 100 subnet
+ redistribute eigrp 110 subnet
+ redistributer rip subnet
+!
+router bgp 100
+ network 123.45.67.4 mask 255.255.255.255
+ network 123.45.67.5 mask 255.255.255.255
+ network 123.45.67.6 mask 255.255.255.255
+ redistribute ospf 1
+ redistribute eigrp 110
+ redistribute rip
+!
+router eigrp 110
+ network 123.45.67.7
+ network 123.45.67.8
+ network 123.45.67.9
+ no auto-summary
+ redistribute ospf 1 metric 8000000 1 255 1 1514
+ redistribute bgp 100 metric 8000000 1 255 1 1514
+ redistribute rip metric 8000000 1 255 1 1514
+!
+router rip
+ version 2
+ network 123.45.67.10
+ no auto-summary
+ redistribute ospf 1 metric 1
+ redistribute bgp 100 metric 1
+ redistribute eigrp 110 metric 1
+!

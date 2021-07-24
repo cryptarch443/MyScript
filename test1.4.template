@@ -1,0 +1,11 @@
+Value name (\S+)
+Value mac (\S+)
+Value ip (\S+)
+Value mtu (\d+)
+Value bandwith (\d+)
+
+Start
+	^${name}\s.*
+	^\s*Hardware\s*\w.*is\s+${mac}
+	^\s*Internet\s.*is\s+{ip}
+	^\s*MTU\s+${mtu}.*BW\s+${bandwith} -> Record

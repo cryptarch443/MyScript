@@ -1,0 +1,7 @@
+Value Neighbor (\d+)
+Value AS (\S+)
+Value Status (\S+)
+Value Prefix (\S+)
+
+Start
+	^${Neighbor}\d.\d.\d.\d -> Record
